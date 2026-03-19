@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Language Translator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="container glass-panel">
+    <header class="app-header">
+      <h1>Sign Language <span class="highlight">Translator</span></h1>
+      <p class="subtitle">Real-time AI detection bridging the communication gap</p>
+    </header>
+    
+    <div class="main-content">
+      <div class="video-section">
+        <div class="video-wrapper">
+          <video id="webcam" autoplay playsinline muted></video>
+          <canvas id="overlay"></canvas>
+          <div id="cameraStatus" class="status-badge"><span class="status-dot"></span> Camera: Not Started</div>
+        </div>
+        
+        <div class="controls glass-panel-inner">
+          <button id="startBtn" class="btn-primary" disabled>
+            <svg viewBox="0 0 24 24" fill="none" class="btn-icon"><path d="M5 3l14 9-14 9V3z" fill="currentColor"/></svg>
+            Start Recognition
+          </button>
+          <button id="stopBtn" class="btn-secondary" disabled>
+            <svg viewBox="0 0 24 24" fill="none" class="btn-icon"><path d="M6 6h12v12H6z" fill="currentColor"/></svg>
+            Stop
+          </button> 
+          <label class="toggle-container">
+            <input type="checkbox" id="speakToggle" checked />
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Speak Output</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="output-section">
+        <div class="output-card glass-panel-inner">
+          <div class="card-header">
+            <h2>Detected Sign</h2>
+            <span class="badge">Mute User</span>
+          </div>
+          <div id="label" class="detected-label">—</div>
+          
+          <div class="confidence-container">
+            <div id="confidenceText">Confidence: —</div>
+            <div id="confidenceBarWrap">
+              <div id="confidenceBar"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="output-card glass-panel-inner transcription-output">
+          <div class="card-header">
+            <h2>Spoken Transcriptions</h2>
+            <span class="badge">Deaf User</span>
+          </div>
+          <p id="spokenTranscription" class="transcription-text">—</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-input-section glass-panel-inner">
+      <div class="card-header">
+        <h2>Type & Speak</h2>
+        <span class="badge">Mute User Input</span>
+      </div>
+      <div class="input-group">
+        <textarea id="textToSpeak" rows="2" placeholder="Type a message to be spoken aloud..."></textarea>
+        <button id="speakTextBtn" class="btn-action">
+          <svg viewBox="0 0 24 24" fill="none" class="btn-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25-2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor"/></svg>
+          Speak
+        </button>
+      </div>
+    </div>
+
+    <div class="instructions glass-panel-inner">
+      <h3><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> How to use</h3>
+      <ol>
+        <li>Wait a moment for the model to initialize automatically.</li>
+        <li>Click <strong>Start Recognition</strong> to begin real-time sign recognition.</li>
+        <li><strong>Mute Users:</strong> Perform sign language on camera or use the "Type & Speak" box.</li>
+        <li><strong>Deaf Users:</strong> Read the spoken text in the "Spoken Transcriptions" area.</li>
+      </ol>
+      <div class="info-alert">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span>Always ensure good lighting and check the <strong>Confidence</strong> level for best results.</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
